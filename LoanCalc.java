@@ -46,8 +46,12 @@ public class LoanCalc {
 		iterationCounter = 0;
 		while (newbalance >= epsilon) {
 			newbalance = endBalance(loan, rate, n, payment);
+			if (newbalance <= epsilon) {
+				break;
+			}else {
 			payment= payment + epsilon;
 			newbalance = loan;
+			}
 			iterationCounter++;
 		}
 		return payment;
@@ -62,18 +66,14 @@ public class LoanCalc {
         double min = 0;
 		double max = loan;
 		double avrage = (max + min) / 2;
-		double avragebalance = endBalance(loan, rate, n, avrage);
-		double maxbalance = endBalance(loan, rate, n, max);
 		iterationCounter = 0;
 		while (max - min > epsilon) {
-			if (avragebalance * maxbalance > 0) {
+			if (endBalance(loan, rate, n, avrage) * endBalance(loan, rate, n, max) > 0) {
 				min = avrage;
 			} else {
 				max = avrage;
 			}
 			avrage = (max + min) / 2;
-			avragebalance = endBalance(loan, rate, n, avrage);
-			maxbalance = endBalance(loan, rate, n, max);
 			iterationCounter++;
 		}
 		return avrage;
