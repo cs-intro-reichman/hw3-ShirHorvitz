@@ -25,28 +25,53 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		while (x2 > 0) {
-			x1++;
-			x2--;
+		if (x2 < 0) {
+			while (x2 < 0) {
+				x1--;
+				x2++;
+			}
+		} else {
+			while (x2 > 0) {
+				x1++;
+				x2--;
+			}
 		}
 		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		while (x2 > 0) {
-			x1--;
-			x2--;
+		if (x2 < 0) {
+			while (x2 < 0) {
+				x1--;
+				x2++;
+			}
+		} else {
+			while (x2 > 0) {
+				x1--;
+				x2--;
+			}
 		}
 		return x1;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		boolean negative = false;
+		if (x1 < 0) {
+			negative = !negative;
+			x1 = minus(0, x1);
+		} if (x2 < 0) {
+			negative = !negative;
+			x2 = minus(0, x2);
+		}
 		int result = 0;
 		while (x2 > 0) {
 			result = plus(result, x1);
 			x2--;
+		}
+		if (result < 0) {
+			return result = minus(0, result) 
 		}
 		return result;
 	}
