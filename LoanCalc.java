@@ -42,15 +42,13 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		double payment = loan / n;
-		double newbalance = endBalance(loan, rate, n, payment);
+		double newbalance = loan;
 		iterationCounter = 0;
-		while (newbalance > epsilon) {
-			payment += epsilon;
+		while (newbalance >= epsilon) {
 			newbalance = endBalance(loan, rate, n, payment);
+			payment++;
+			newbalance = loan;
 			iterationCounter++;
-			if (iterationCounter > 100000) {
-				break;
-			}
 		}
 		return payment;
     }
@@ -61,25 +59,22 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-        double min = loan / n;
+        double min = 0;
 		double max = loan;
 		double avrage = (max + min) / 2;
-		double avragebalance = endBalance(loan, rate, n, avrage);
+		double minbalance = endBalance(loan, rate, n, min);
 		double maxbalance = endBalance(loan, rate, n, max);
 		iterationCounter = 0;
 		while (max - min > epsilon) {
-			if (avragebalance * maxbalance > 0) {
-				max = avrage;
-			} else {
+			if (minbalance * maxbalance > 0) {
 				min = avrage;
+			} else {
+				max = avrage;
 			}
 			avrage = (max + min) / 2;
-			avragebalance = endBalance(loan, rate, n, avrage);
+			minbalance = endBalance(loan, rate, n, min);
 			maxbalance = endBalance(loan, rate, n, max);
 			iterationCounter++;
-			if (iterationCounter > 1000) {
-				break;
-			}
 		}
 		return avrage;
     }
