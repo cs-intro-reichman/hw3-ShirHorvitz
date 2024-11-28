@@ -68,7 +68,9 @@ public class LoanCalc {
 		double avrage = (max + min) / 2;
 		iterationCounter = 0;
 		while (max - min > epsilon) {
-			if (endBalance(loan, rate, n, avrage) * endBalance(loan, rate, n, max) > 0) {
+			double balanceAtAvrage = endBalance(loan, rate, n, avrage);
+			double balanceAtMin = endBalance(loan, rate, n, min);
+			if (balanceAtAvrage * balanceAtMin > 0) {
 				min = avrage;
 			} else {
 				max = avrage;
