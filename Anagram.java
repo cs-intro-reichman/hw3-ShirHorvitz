@@ -61,6 +61,8 @@ public class Anagram {
 				answer += a;
 			} if (a >= 'A' && a <= 'Z') {
 				answer += a;
+			} if (a == ' ') {
+				answer += a;
 			}
 		}
 		return answer.toLowerCase();
