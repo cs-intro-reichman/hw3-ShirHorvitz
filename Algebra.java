@@ -71,7 +71,7 @@ public class Algebra {
 			x2--;
 		}
 		if (result < 0) {
-			return result = minus(0, result) 
+			return result = minus(0, result); 
 		}
 		return result;
 	}
